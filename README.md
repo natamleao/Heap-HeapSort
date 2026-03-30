@@ -178,16 +178,18 @@ Tempo de execução: 0 H : 0 M : 0 S : 12 ms
 ## Estrutura do projeto
 
 ```
-Heap-Project/
+Heap-HeapSort/
 │
-├── include/        # Headers (.h)
-├── src/            # Implementações (.c)
-├── obj/            # Arquivos objeto
-├── bin/            # Executáveis
+├── app/             # Arquivo principal da aplicação (main)
+├── bin/             # Executáveis gerados
+├── include/         # Arquivos de cabeçalho (.h)
+├── build/           # Arquivos objeto (.o)
+├── src/             # Código-fonte da aplicação (.c)
+├── lib/             # Biblioteca estática
 │
-├── Makefile
-├── README.md
-└── LICENSE
+├── Makefile         # Regras de compilação
+├── README.md        # Documentação do projeto
+└── LICENSE          # Licença do projeto
 ```
 
 ---
@@ -207,8 +209,8 @@ Heap-Project/
 Clone o repositório:
 
 ```bash
-git clone git@github.com:natamleao/Hash-Table.git
-cd Hash-Table
+git clone git@github.com:natamleao/Heap-HeapSort.git
+cd Heap-HeapSort
 ```
 ---
 
