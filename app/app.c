@@ -5,8 +5,8 @@
 #include <stdlib.h>
 #include <time.h> 
 
-#define CAPACITY 1100000
-#define SIZE 100000
+#define CAPACITY 1000000000
+#define SIZE 100000000
 
 int main(){
     float *array6 = calloc(CAPACITY, sizeof(float));
