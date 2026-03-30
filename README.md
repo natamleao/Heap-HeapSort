@@ -76,7 +76,7 @@ struct _structureHeap{
 ### Construção da heap
 
 ```c
-HeapBuildFromArray(heap);
+heapBuildFromArray(heap);
 ```
 
 Transforma um array arbitrário em uma heap válida.
@@ -86,7 +86,7 @@ Transforma um array arbitrário em uma heap válida.
 ### Inserção
 
 ```c
-HeapInsertKey(heap, key);
+heapInsertKey(heap, key);
 ```
 
 Mantém a propriedade de heap via **HeapifyUp**.
@@ -96,7 +96,7 @@ Mantém a propriedade de heap via **HeapifyUp**.
 ### Remoção do máximo
 
 ```c
-HeapExtractMax(heap);
+heapExtractMax(heap);
 ```
 
 Remove o elemento da raiz e reorganiza a estrutura.
@@ -106,7 +106,7 @@ Remove o elemento da raiz e reorganiza a estrutura.
 ## HeapSort
 
 ```c
-void HeapSort(StructureHeap *heap);
+void heapSort(Heap *heap);
 ```
 
 Etapas:
@@ -116,7 +116,7 @@ Etapas:
 3. Redução do tamanho virtual
 4. Reorganização com HeapifyDown
 
-Complexidade:
+Complexidade: 
 
 * Tempo: `O(n log n)`
 * Espaço: `O(1)`
@@ -128,8 +128,8 @@ Complexidade:
 O projeto utiliza `clock_gettime` com `CLOCK_MONOTONIC`, evitando interferência de ajustes no relógio do sistema.
 
 ```c
-double tempo = calculateTime(HeapSort, heap);
-calculateTimePrintTime(tempo);
+double executionTime = executionTimeCalculate(heapSort, heap);
+executionTimePrint(executionTime);
 ```
 
 Exemplo de saída:

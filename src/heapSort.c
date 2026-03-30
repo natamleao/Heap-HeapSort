@@ -1,14 +1,14 @@
-#include "heapSort.h"
+#include "../include/heapSort.h"
 
 /******************************************************* INTERFACE PUBLICA *******************************************************/
 
-void HeapSort(StructureHeap *heap){
-    HeapBuildFromArray(heap);
-    for(int i = HeapGetSize(heap); i > 1; i--){
-        HeapChangeValues(heap, 0, i - 1);
-        HeapSetVirtuaSize(heap, i - 1);
+void heapSort(Heap *heap){
+    heapBuildFromArray(heap);
+    for(int i = heapGetSize(heap); i > 1; i--){
+        heapChangeValues(heap, 0, i - 1);
+        heapSetVirtuaSize(heap, i - 1);
 
-        HeapifyDown(heap, 0);
+        heapifyDown(heap, 0);
     }
 }
 

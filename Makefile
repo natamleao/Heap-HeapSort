@@ -16,7 +16,7 @@ all: \
 libeb: \
     $(BUILD)/heap.o \
 	$(BUILD)/heapSort.o \
-	$(BUILD)/calculateTime.o
+	$(BUILD)/executionTime.o
 
 myapps: \
 	cleanapp \
@@ -25,7 +25,7 @@ myapps: \
 $(BUILD)/%.o: $(SRC)/%.c $(INCLUDE)/%.h
 	gcc $(FLAGS) -c $< -I $(INCLUDE) -o $@ 
 
-$(LIB): $(BUILD)/heap.o $(BUILD)/heapSort.o $(BUILD)/calculateTime.o
+$(LIB): $(BUILD)/heap.o $(BUILD)/heapSort.o $(BUILD)/executionTime.o
 	ar rcs $@ $^
 
 $(BIN)/%: $(APPS)/%.c $(LIB)

@@ -1,57 +1,60 @@
-#include "heap.h"
-#include "heapSort.h"
-#include "calculateTime.h"
+#include "../include/heap.h"
+#include "../include/heapSort.h"
+#include "../include/executionTime.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
+#define CAPACITY 1100000
+#define SIZE 100000
+
 int main(){
-    float *array6 = calloc(1000000000, sizeof(float));
+    float *array6 = calloc(CAPACITY, sizeof(float));
     if(!array6){
         printf("Erro ao alocar memória!\n");
         return 1;
     }
 
     srand(time(NULL));
-    for(int i = 0; i < 10000000; i++){
+    for(int i = 0; i < SIZE; i++){
         float min = -5000000000000.0f;
         float max =  5000000000000.0f;
         array6[i] = min + ((float)rand() / RAND_MAX) * (max - min);
     }
 
-    StructureHeap *heap = HeapCreateStructureHeap(array6, 10000000, 100000000);
+    Heap *heap = heapCreate(array6, SIZE, CAPACITY);
 
     //printf("Estrutura criada!\n");
-    //HeapPrint(heap);
+    //heapPrint(heap);
 
-    //HeapBuildFromArray(heap);
+    //heapBuildFromArray(heap);
 //
     //printf("Heap construída!\n");
-    //HeapPrint(heap);
+    //heapPrint(heap);
 //
-    //HeapInsertKey(heap, 100);
+    //heapInsertKey(heap, 100);
 //
     //printf("Após a inserção!\n");
-    //HeapPrint(heap);
+    //heapPrint(heap);
 //
-    //HeapExtractMax(heap);
+    //heapExtractMax(heap);
 //
     //printf("Após a remoção!\n");
-    //HeapPrint(heap);
+    //heapPrint(heap);
 //
-    //HeapInsertKey(heap, -10);
+    //heapInsertKey(heap, -10);
 //
     //printf("Após a inserção!\n");
-    //HeapPrint(heap);
+    //heapPrint(heap);
 
-    //HeapSort(heap);
-    double executionTime = calculateTime(HeapSort, heap);
+    //heapSort(heap);
+    double executionTime = executionTimeCalculate(heapSort, heap);
 
     //printf("Após a ordenação!\n");
     //HeapPrint(heap);
 
-    calculateTimePrintTime(executionTime);
+    executionTimePrint(executionTime);
 
-    HeapDestroy(heap);
+    heapDestroy(heap);
     return 0;
 }

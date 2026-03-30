@@ -1,6 +1,7 @@
 #define _POSIX_C_SOURCE 199309L
-#include "calculateTime.h"
+#include "../include/executionTime.h"
 #include <time.h>
+#include <stdio.h>
 
 /******************************************************* INTERFACE PRIVADA *******************************************************/
 
@@ -10,7 +11,7 @@ double elapsed(struct timespec a, struct timespec b){
 
 /******************************************************* INTERFACE PUBLICA *******************************************************/
 
-double calculateTime(void (*func)(StructureHeap *heap), StructureHeap *heap){
+double executionTimeCalculate(void (*func)(Heap *heap), Heap *heap){
     struct timespec t1, t2;
     clock_gettime(CLOCK_MONOTONIC, &t1);
     func(heap);
@@ -19,7 +20,7 @@ double calculateTime(void (*func)(StructureHeap *heap), StructureHeap *heap){
     return elapsed(t1, t2);
 }
 
-void calculateTimePrintTime(double executionTime){
+void executionTimePrint(double executionTime){
     int hours, minutes, seconds, milliseconds;
 
     hours = (int)(executionTime / 3600);

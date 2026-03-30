@@ -1,4 +1,4 @@
-#include "heap.h"
+#include "../include/heap.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -6,7 +6,7 @@
 
 /******************************************************* INTERFACE PRIVADA *******************************************************/
 
-struct _structureHeap{
+struct _heap{
     float *_data;
     int _size;
     int _virtualSize;
@@ -15,13 +15,13 @@ struct _structureHeap{
 
 /******************************************************* INTERFACE PUBLICA *******************************************************/
 
-StructureHeap* HeapCreateStructureHeap(float *array, int size, int capacity){
+Heap* heapCreate(float *array, int size, int capacity){
     if(capacity < size){
         printf("Erro: capacidade menor que o tamanho do array!\n");
         return NULL;
     }
 
-    StructureHeap *heap = (StructureHeap*)malloc(sizeof(StructureHeap));
+    Heap *heap = (Heap*)malloc(sizeof(Heap));
     if(!heap) return NULL;
 
     heap->_data = calloc(capacity, sizeof(float));
@@ -38,54 +38,54 @@ StructureHeap* HeapCreateStructureHeap(float *array, int size, int capacity){
     return heap;
 }
 
-float* HeapGetHeap(StructureHeap *heap){return heap->_data;}
-int HeapGetCapacity(StructureHeap *heap){return heap->_capacity;}
-int HeapGetSize(StructureHeap *heap){return heap->_size;}
-int HeapGetVirtuaSize(StructureHeap *heap){return heap->_virtualSize;}
+float* heapGetheap(Heap *heap){return heap->_data;}
+int heapGetCapacity(Heap *heap){return heap->_capacity;}
+int heapGetSize(Heap *heap){return heap->_size;}
+int heapGetVirtuaSize(Heap *heap){return heap->_virtualSize;}
 
-void HeapSetHeap(StructureHeap *heap, int index, float value){heap->_data[index] = value;}
-void HeapSetCapacity(StructureHeap *heap, int value){heap->_capacity = value;}
-void HeapSetSize(StructureHeap *heap, int value){heap->_size = value;}
-void HeapSetVirtuaSize(StructureHeap *heap, int value){heap->_virtualSize = value;}
+void heapSetheap(Heap *heap, int index, float value){heap->_data[index] = value;}
+void heapSetCapacity(Heap *heap, int value){heap->_capacity = value;}
+void heapSetSize(Heap *heap, int value){heap->_size = value;}
+void heapSetVirtuaSize(Heap *heap, int value){heap->_virtualSize = value;}
 
-void HeapChangeCapacity(StructureHeap *heap, int delta){HeapSetCapacity(heap, HeapGetCapacity(heap) + delta);}
-void HeapChangeSize(StructureHeap *heap, int delta){HeapSetSize(heap, HeapGetSize(heap) + delta);}
+void heapChangeCapacity(Heap *heap, int delta){heapSetCapacity(heap, heapGetCapacity(heap) + delta);}
+void heapChangeSize(Heap *heap, int delta){heapSetSize(heap, heapGetSize(heap) + delta);}
 
-void HeapifyUp(StructureHeap *heap, int index){
+void heapifyUp(Heap *heap, int index){
     int father = (index - 1) / 2;
 
     if(index == 0) return;
 
-    if(HeapGetHeap(heap)[index] > HeapGetHeap(heap)[father]){
-        HeapChangeValues(heap, index, father);
+    if(heapGetheap(heap)[index] > heapGetheap(heap)[father]){
+        heapChangeValues(heap, index, father);
 
-        HeapifyUp(heap, father);
+        heapifyUp(heap, father);
     }
 }
 
-void HeapifyDown(StructureHeap *heap, int index){
+void heapifyDown(Heap *heap, int index){
     int son = 2 * index + 1;
 
-    if(son >= HeapGetVirtuaSize(heap)) return;
+    if(son >= heapGetVirtuaSize(heap)) return;
 
-    if(son <= HeapGetVirtuaSize(heap) - 1 && son < HeapGetVirtuaSize(heap) - 1 && HeapGetHeap(heap)[son] < HeapGetHeap(heap)[son + 1])
+    if(son <= heapGetVirtuaSize(heap) - 1 && son < heapGetVirtuaSize(heap) - 1 && heapGetheap(heap)[son] < heapGetheap(heap)[son + 1])
         son++;
 
-    if(HeapGetHeap(heap)[index] < HeapGetHeap(heap)[son]){
-        HeapChangeValues(heap, index, son);
+    if(heapGetheap(heap)[index] < heapGetheap(heap)[son]){
+        heapChangeValues(heap, index, son);
 
-        HeapifyDown(heap, son);
+        heapifyDown(heap, son);
     }
 }
 
-float HeapExtractMax(StructureHeap *heap){
-    if(HeapGetSize(heap) >= 1){
-        float maxValue = HeapGetHeap(heap)[0];
-        HeapSetHeap(heap, 0, HeapGetHeap(heap)[HeapGetSize(heap) - 1]);
-        HeapSetHeap(heap, HeapGetSize(heap) - 1, 0.0);
-        HeapChangeSize(heap, -1);
+float heapExtractMax(Heap *heap){
+    if(heapGetSize(heap) >= 1){
+        float maxValue = heapGetheap(heap)[0];
+        heapSetheap(heap, 0, heapGetheap(heap)[heapGetSize(heap) - 1]);
+        heapSetheap(heap, heapGetSize(heap) - 1, 0.0);
+        heapChangeSize(heap, -1);
         
-        HeapifyDown(heap, 0);
+        heapifyDown(heap, 0);
 
         return maxValue;
     } 
@@ -96,38 +96,38 @@ float HeapExtractMax(StructureHeap *heap){
     }
 }
 
-void HeapInsertKey(StructureHeap *heap, float key){
-    if(HeapGetSize(heap) < HeapGetCapacity(heap)){
-        HeapSetHeap(heap, HeapGetSize(heap), key);
+void heapInsertKey(Heap *heap, float key){
+    if(heapGetSize(heap) < heapGetCapacity(heap)){
+        heapSetheap(heap, heapGetSize(heap), key);
 
-        HeapifyUp(heap, HeapGetSize(heap));
-        HeapChangeSize(heap, 1);
+        heapifyUp(heap, heapGetSize(heap));
+        heapChangeSize(heap, 1);
     }
 
     else
         printf("Overflow!\n");
 }
 
-void HeapBuildFromArray(StructureHeap *heap){
-    for(int i = (HeapGetSize(heap) / 2) - 1; i >= 0; i--)
-        HeapifyDown(heap, i);
+void heapBuildFromArray(Heap *heap){
+    for(int i = (heapGetSize(heap) / 2) - 1; i >= 0; i--)
+        heapifyDown(heap, i);
 }
 
-void HeapPrint(StructureHeap *heap){
+void heapPrint(Heap *heap){
     printf("[");
-    for(int i = 0; i < HeapGetSize(heap) - 1; i++)
-        printf("%.2f  ", HeapGetHeap(heap)[i]);
+    for(int i = 0; i < heapGetSize(heap) - 1; i++)
+        printf("%.2f  ", heapGetheap(heap)[i]);
     
-    printf("%.2f]\n", HeapGetHeap(heap)[HeapGetSize(heap) - 1]);
+    printf("%.2f]\n", heapGetheap(heap)[heapGetSize(heap) - 1]);
 }
 
-void HeapChangeValues(StructureHeap *heap, int indexP, int indexS){
-    float auxiliaryVariable = HeapGetHeap(heap)[indexP];
-    HeapSetHeap(heap, indexP, HeapGetHeap(heap)[indexS]);
-    HeapSetHeap(heap, indexS, auxiliaryVariable);
+void heapChangeValues(Heap *heap, int indexP, int indexS){
+    float auxiliaryVariable = heapGetheap(heap)[indexP];
+    heapSetheap(heap, indexP, heapGetheap(heap)[indexS]);
+    heapSetheap(heap, indexS, auxiliaryVariable);
 }
 
-void HeapDestroy(StructureHeap *heap){
+void heapDestroy(Heap *heap){
     if(heap){
         free(heap->_data);
         free(heap);

@@ -10,7 +10,7 @@
  * 
  * @param heap Ponteiro para o heap. 
  */
-void HeapSort(StructureHeap *heap);
+void heapSort(Heap *heap);
 
 #endif
 
