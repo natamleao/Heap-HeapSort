@@ -7,14 +7,14 @@
 typedef struct _heap Heap;
 
 /**
- * @brief Cria a estrutura de um Heap a partir de um array qualquer.
+ * @brief Cria a estrutura de um Heap a partir de um array.
  *
- * Copia os elementos do array passado para o array da estrutura,
- * mas sem transformá-la em um Heap, ajusta size, vituralSize e capacidade.
+ * Copia os elementos do array passado para o Heap, mas sem construir
+ * a propriedade de Heap. Ajusta size, virtualSize e capacidade.
  *
  * @param array Ponteiro para o array de floats.
- * @param size Quantidade de elementos válidos no array.
- * @param capacity Capacidade máxima que o Heap deve ter (>= array_size).
+ * @param size Número de elementos válidos no array.
+ * @param capacity Capacidade máxima do Heap (>= size).
  * @return Ponteiro para o Heap alocado, ou NULL se falhar.
  */
 Heap* heapCreate(float *array, int size, int capacity);
@@ -22,178 +22,166 @@ Heap* heapCreate(float *array, int size, int capacity);
 /**
  * @brief Retorna o vetor interno de dados do Heap.
  *
- * Permite acesso direto ao array que armazena os elementos do Heap.
- *
- * @param Heap Ponteiro para a estrutura do Heap.
+ * @param heap Ponteiro para o Heap.
  * @return Ponteiro para o vetor de floats que representa os dados.
  */
-float* heapGetHeap(Heap *Heap);
+float* heapGetHeap(Heap *heap);
 
 /**
  * @brief Retorna a capacidade máxima do Heap.
  *
- * Informa quantos elementos o Heap pode armazenar antes de ocorrer overflow.
- *
- * @param Heap Ponteiro para a estrutura do Heap.
- * @return Capacidade máxima do Heap.
+ * @param heap Ponteiro para o Heap.
+ * @return Número máximo de elementos que o Heap pode armazenar.
  */
-int heapGetCapacity(Heap *Heap);
+int heapGetCapacity(Heap *heap);
 
 /**
  * @brief Retorna o tamanho atual do Heap.
  *
- * Indica quantos elementos válidos estão armazenados no Heap no momento.
- *
- * @param Heap Ponteiro para a estrutura do Heap.
- * @return Número de elementos atualmente no Heap.
+ * @param heap Ponteiro para o Heap.
+ * @return Número de elementos válidos atualmente no Heap.
  */
-int heapGetSize(Heap *Heap);
+int heapGetSize(Heap *heap);
 
 /**
- * @brief Retorna o tamanho atual virtual do Heap.
+ * @brief Retorna o tamanho virtual atual do Heap.
  *
- * Indica quantos elementos válidos estão armazenados no Heap no momento.
- *
- * @param Heap Ponteiro para a estrutura do Heap.
- * @return Número de elementos atualmente no Heap.
+ * @param heap Ponteiro para o Heap.
+ * @return Número de elementos válidos considerados no Heap.
  */
-int heapGetVirtuaSize(Heap *Heap);
+int heapGetVirtualSize(Heap *heap);
+
+/**
+ * @brief Retorna o valor de um elemento do Heap.
+ * 
+ * @param heap Ponteiro para o Heap.
+ * @param index Índice do elemento.
+ * @return Valor do elemento no índice especificado.
+ */
+float heapGetValue(Heap *heap, int index);
 
 /**
  * @brief Define o valor de um elemento no Heap.
  *
- * Altera diretamente o valor armazenado no índice especificado.
- *
- * @param Heap Ponteiro para a estrutura do Heap.
+ * @param heap Ponteiro para o Heap.
  * @param index Índice do elemento a ser alterado (0 a size-1).
- * @param value Novo valor a ser colocado nessa posição.
+ * @param value Novo valor a ser colocado nesse índice.
  */
-void heapSetHeap(Heap *Heap, int index, float value);
+void heapSetHeap(Heap *heap, int index, float value);
 
 /**
- * @brief Ajusta a capacidade do Heap.
+ * @brief Ajusta a capacidade máxima do Heap.
  *
- * Altera a capacidade máxima em relação ao valor atual.
- *
- * @param Heap Ponteiro para a estrutura do Heap.
- * @param value Valor a ser adicionado à capacidade.
+ * @param heap Ponteiro para o Heap.
+ * @param value Nova capacidade ou incremento da capacidade.
  */
-void heapSetCapacity(Heap *Heap, int value);
+void heapSetCapacity(Heap *heap, int value);
 
 /**
  * @brief Ajusta o tamanho atual do Heap.
  *
- * Altera o campo `size` em relação ao valor atual.
- *
- * @param Heap Ponteiro para a estrutura do Heap.
- * @param value Valor a ser adicionado ao tamanho.
+ * @param heap Ponteiro para o Heap.
+ * @param value Novo tamanho ou incremento do tamanho atual.
  */
-void heapSetSize(Heap *Heap, int value);
+void heapSetSize(Heap *heap, int value);
 
 /**
- * @brief Ajusta o tamanho atual virtual do Heap.
+ * @brief Ajusta o tamanho virtual atual do Heap.
  *
- * Altera o campo `virtualSize` em relação ao valor atual.
- *
- * @param Heap Ponteiro para a estrutura do Heap.
- * @param value Valor a ser adicionado ao tamanho.
+ * @param heap Ponteiro para o Heap.
+ * @param value Novo valor ou incremento do tamanho virtual.
  */
-void heapSetVirtuaSize(Heap *Heap, int value);
+void heapSetVirtualSize(Heap *heap, int value);
 
 /**
- * @brief Altera a capacidade do Heap em uma quantidade específica.
- *
- * Incrementa ou decrementa o campo `capacity` da estrutura do Heap
- * de acordo com o valor de `delta`. Pode ser positivo (aumenta) ou
- * negativo (diminui).
- *
- * @param Heap Ponteiro para a estrutura do Heap.
- * @param delta Valor a ser adicionado ao campo capacity.
+ * @brief Define ou adiciona um valor no Heap.
+ * 
+ * @param heap Ponteiro para o Heap.
+ * @param index Índice do elemento.
+ * @param value Valor a ser definido.
  */
-void heapChangeCapacity(Heap *Heap, int delta);
+void heapSetValue(Heap *heap, int index, float value);
 
 /**
- * @brief Altera o tamanho atual do Heap em uma quantidade específica.
+ * @brief Incrementa o tamanho atual do Heap em 1.
  *
- * Incrementa ou decrementa o campo `size` de acordo com o valor de `delta`.
- *
- * @param Heap Ponteiro para a estrutura do Heap.
- * @param delta Valor a ser adicionado ao campo size.
+ * @param heap Ponteiro para a estrutura Heap.
  */
-void heapChangeSize(Heap *Heap, int delta);
+void heapIncrementSize(Heap *heap);
+
+/**
+ * @brief Decrementa o tamanho atual do Heap em 1.
+ *
+ * @param heap Ponteiro para a estrutura Heap.
+ */
+void heapDecrementSize(Heap *heap);
 
 /**
  * @brief "Sobe" o elemento na posição index até restaurar a propriedade de Heap.
  * 
- * @param Heap Ponteiro para o Heap.
+ * @param heap Ponteiro para o Heap.
  * @param index Índice do elemento a ser ajustado.
  */
-void heapifyUp(Heap *Heap, int index);
+void heapifyUp(Heap *heap, int index);
 
 /**
  * @brief "Desce" o elemento na posição index até restaurar a propriedade de Heap.
  * 
- * @param Heap Ponteiro para o Heap.
+ * @param heap Ponteiro para o Heap.
  * @param index Índice do elemento a ser ajustado.
  */
-void heapifyDown(Heap *Heap, int index);
+void heapifyDown(Heap *heap, int index);
 
 /**
  * @brief Extrai (remove e retorna) o maior elemento do Heap.
  * 
- * @param Heap Ponteiro para o Heap.
+ * @param heap Ponteiro para o Heap.
  * @return Maior valor do Heap, ou -1 se estiver vazio.
  */
-float heapExtractMax(Heap *Heap);
+float heapExtractMax(Heap *heap);
 
 /**
  * @brief Insere uma nova chave no Heap.
  * 
- * @param Heap Ponteiro para o Heap.
+ * @param heap Ponteiro para o Heap.
  * @param key Valor a ser inserido.
  */
-void heapInsertKey(Heap *Heap, float key);
+void heapInsertKey(Heap *heap, float key);
 
 /**
  * @brief Constrói um Heap válido a partir do vetor já preenchido.
  * 
- * @param Heap Ponteiro para o Heap.
+ * @param heap Ponteiro para o Heap.
  */
-void heapBuildFromArray(Heap *Heap);
+void heapBuildFromArray(Heap *heap);
 
 /**
  * @brief Imprime todos os elementos do Heap no console.
  *
- * A função percorre o vetor interno do Heap do índice 0 até Heap->size - 1
- * e imprime os valores. 
+ * @param heap Ponteiro para o Heap.
  *
- * @param Heap Ponteiro para o Heap a ser impresso.
- *
- * @note Os elementos são impressos na ordem interna do vetor, não necessariamente
- *       em ordem decrescente de valor.
+ * @note Os elementos são impressos na ordem interna do vetor,
+ *       não necessariamente em ordem decrescente.
  */
-void heapPrint(Heap *Heap);
+void heapPrint(Heap *heap);
 
 /**
  * @brief Troca os valores de dois elementos no Heap.
  *
- * Realiza a troca dos valores entre os índices `indexP` e `indexS` do Heap.
- *
- * @param Heap Ponteiro para a estrutura do Heap.
- * @param indexP Índice do primeiro elemento a ser trocado.
- * @param indexS Índice do segundo elemento a ser trocado.
+ * @param heap Ponteiro para o Heap.
+ * @param indexP Índice do primeiro elemento.
+ * @param indexS Índice do segundo elemento.
  */
-void heapChangeValues(Heap *Heap, int indexP, int indexS);
+void heapChangeValues(Heap *heap, int indexP, int indexS);
 
 /**
  * @brief Libera toda a memória usada pelo Heap.
  *
- * Desaloca o vetor interno de dados (`data`) e a própria estrutura
- * do Heap. 
+ * Desaloca o vetor interno de dados e a própria estrutura do Heap.
  *
- * @param Heap Ponteiro para a estrutura do Heap a ser destruída.
+ * @param heap Ponteiro para o Heap a ser destruído.
  */
-void heapDestroy(Heap *Heap);
+void heapDestroy(Heap *heap);
 
 #endif
 

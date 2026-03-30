@@ -1,4 +1,4 @@
-  /******************************************************* INTERFACE PUBLICA *******************************************************/
+/******************************************************* INTERFACE PUBLICA *******************************************************/
 
 #ifndef CALCULATE_TIME_H
 #define CALCULATE_TIME_H
@@ -6,27 +6,23 @@
 #include "heap.h"
 
 /**
- * @brief Mede o tempo de execução de uma função que atua sobre uma estrutura.
+ * @brief Mede o tempo de execução de uma função que atua sobre uma estrutura genérica.
  *
- * @param function Ponteiro para a função a ser executada. Essa função deve receber um parâmetro do tipo `void*` e não retornar valor.
- * @param data Ponteiro para a estrutura sobre a qual a função irá atuar.
+ * @param function Ponteiro para a função a ser executada. Deve receber um parâmetro `void*` e não retornar valor.
+ * @param data Ponteiro para a estrutura sobre a qual a função atuará.
  *
- * @return Tempo de execução da função (em segundos) como um valor do tipo `double`.
+ * @return Tempo de execução da função em segundos (tipo `double`).
  *
- * @note Usa a função `clock()` da biblioteca `<time.h>`, logo mede tempo de CPU, não tempo real decorrido.
+ * @note Usa `clock()` da biblioteca `<time.h>`, portanto mede **tempo de CPU**, não tempo real.
  */
 double executionTimeCalculate(void (*function)(void *), void *data);
 
 /**
  * @brief Imprime o tempo de execução em horas, minutos, segundos e milissegundos.
  *
- * Esta função recebe o tempo total em segundos (tipo double) e converte
- * para horas, minutos, segundos e milissegundos, imprimindo no formato:
- * "H M S ms".
+ * @param executionTime Tempo total em segundos (tipo `double`).
  *
- * @param executionTime Tempo total em segundos (pode conter fração para milissegundos).
- *
- * @note A função apenas imprime o resultado na tela; não retorna nenhum valor.
+ * @note Apenas imprime o resultado no console; não retorna nenhum valor.
  */
 void executionTimePrint(double executionTime);
 

@@ -42,14 +42,16 @@ float* heapGetheap(Heap *heap){return heap->_data;}
 int heapGetCapacity(Heap *heap){return heap->_capacity;}
 int heapGetSize(Heap *heap){return heap->_size;}
 int heapGetVirtuaSize(Heap *heap){return heap->_virtualSize;}
+float heapGetValue(Heap *heap, int index){return heap->_data[index];}
 
 void heapSetheap(Heap *heap, int index, float value){heap->_data[index] = value;}
 void heapSetCapacity(Heap *heap, int value){heap->_capacity = value;}
 void heapSetSize(Heap *heap, int value){heap->_size = value;}
 void heapSetVirtuaSize(Heap *heap, int value){heap->_virtualSize = value;}
+void heapSetValue(Heap *heap, int index, float value){heap->_data[index] = value;}
 
-void heapChangeCapacity(Heap *heap, int delta){heapSetCapacity(heap, heapGetCapacity(heap) + delta);}
-void heapChangeSize(Heap *heap, int delta){heapSetSize(heap, heapGetSize(heap) + delta);}
+void heapIncrementSize(Heap *heap){heap->_size++;}
+void heapDecrementSize(Heap *heap){heap->_size--;}
 
 void heapifyUp(Heap *heap, int index){
     int father = (index - 1) / 2;
@@ -83,7 +85,7 @@ float heapExtractMax(Heap *heap){
         float maxValue = heapGetheap(heap)[0];
         heapSetheap(heap, 0, heapGetheap(heap)[heapGetSize(heap) - 1]);
         heapSetheap(heap, heapGetSize(heap) - 1, 0.0);
-        heapChangeSize(heap, -1);
+        heapDecrementSize(heap);
         
         heapifyDown(heap, 0);
 
@@ -101,7 +103,7 @@ void heapInsertKey(Heap *heap, float key){
         heapSetheap(heap, heapGetSize(heap), key);
 
         heapifyUp(heap, heapGetSize(heap));
-        heapChangeSize(heap, 1);
+        heapIncrementSize(heap);
     }
 
     else

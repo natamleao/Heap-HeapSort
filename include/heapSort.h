@@ -6,16 +6,20 @@
 #include "heap.h"
 
 /**
- * @brief Chama a função `heapSort` incapsulada.
- * 
- * @param h Ponteiro para o heap.
+ * @brief Wrapper para permitir chamar `heapSort` através de ponteiros genéricos.
+ *
+ * @param h Ponteiro para a estrutura `Heap` (passado como `void*` para compatibilidade).
+ *
+ * @note Usado principalmente com funções como `executionTimeCalculate` que aceitam `void*`.
  */
 void heapSortWrapper(void *h);
 
 /**
- * @brief Algoritmo de ordenação Heap Sort, ordena um vetor utilizando a estrutura de uma Heap.
+ * @brief Ordena um vetor utilizando a estrutura de Heap (Heap Sort).
  * 
- * @param heap Ponteiro para o heap. 
+ * @param heap Ponteiro para a estrutura `Heap` a ser ordenada.
+ *
+ * @note O algoritmo transforma a Heap em um vetor ordenado em ordem crescente.
  */
 void heapSort(Heap *heap);
 
