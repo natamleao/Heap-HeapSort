@@ -4,7 +4,7 @@
 
 void heapSortWrapper(void *h){
     heapSort((Heap*)h);
-}
+} 
 
 void heapSort(Heap *heap){
     heapBuildFromArray(heap);
