@@ -2,7 +2,7 @@
 
 /******************************************************* INTERFACE PUBLICA *******************************************************/
 
-void heapSortWrapper(void *h) {
+void heapSortWrapper(void *h){
     heapSort((Heap*)h);
 }
 

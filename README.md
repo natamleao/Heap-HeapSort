@@ -128,7 +128,7 @@ Complexidade:
 O projeto utiliza `clock_gettime` com `CLOCK_MONOTONIC`, evitando interferência de ajustes no relógio do sistema.
 
 ```c
-double executionTime = executionTimeCalculate(heapSort, heap);
+double executionTime = executionTimeCalculate(heapSortWrapper, heap);
 executionTimePrint(executionTime);
 ```
 
