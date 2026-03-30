@@ -9,52 +9,47 @@
 
 ---
 
-## Sobre o projeto
+## Visão geral
 
-> [!NOTE]
-> Este projeto implementa uma **estrutura Heap (Max-Heap)** em C, juntamente com o algoritmo **HeapSort**, incluindo também um módulo para **medição precisa de tempo de execução**.
+Este projeto implementa uma **Heap (Max-Heap)** em C, juntamente com o algoritmo **HeapSort**.
 
----
-
-## Tecnologias utilizadas
-
-* **C (C11)**
-* **POSIX (`clock_gettime`)**
-* **GNU Make**
+Também inclui um módulo simples para **medição de tempo de execução** utilizando `clock_gettime`, permitindo avaliar o desempenho do algoritmo.
 
 ---
 
-## Conceitos aplicados
+## Funcionalidades
 
-Esse projeto é praticamente um checklist de fundamentos bem feitos:
-
-* Alocação dinâmica (`malloc`, `calloc`, `free`)
-* Manipulação de ponteiros
-* Estrutura **Heap (Max-Heap)**
-* Recursão (`HeapifyUp` e `HeapifyDown`)
-* Ordenação com **HeapSort**
-* Controle de tamanho lógico vs virtual
-* Medição de tempo com alta precisão
-* Modularização (`.h` / `.c`)
+- Criação de heap a partir de array  
+- Inserção de elementos  
+- Remoção do elemento máximo  
+- Construção de heap (heapify)  
+- Ordenação com HeapSort  
+- Impressão da estrutura  
+- Medição de tempo de execução  
+- Liberação de memória  
 
 ---
 
 ## Estrutura da Heap
 
-A heap é representada como array:
+A heap é representada como um array:
 
 ```
+
 Índice:   0    1    2    3    4    5
 Valor:   [90, 70, 50, 30, 20, 10]
+
 ```
 
 Relações:
 
 ```
-pai(i)     = (i - 1) / 2
-esq(i)     = 2*i + 1
-dir(i)     = 2*i + 2
-```
+
+pai(i) = (i - 1) / 2
+esq(i) = 2*i + 1
+dir(i) = 2*i + 2
+
+````
 
 ---
 
@@ -67,24 +62,24 @@ struct _structureHeap{
     int _virtualSize;
     int _capacity;
 };
-```
+````
 
-### Significado:
-
-* `_data` → array da heap
-* `_size` → tamanho real
-* `_virtualSize` → usado no HeapSort (controle da parte ativa)
-* `_capacity` → capacidade máxima
+* `_data`: array da heap
+* `_size`: quantidade de elementos válidos
+* `_virtualSize`: usado no HeapSort para controlar a parte ativa
+* `_capacity`: capacidade máxima
 
 ---
 
-## Funcionalidades
+## Operações principais
 
-### Criar heap
+### Construção da heap
 
 ```c
-HeapCreateStructureHeap(array, size, capacity);
+HeapBuildFromArray(heap);
 ```
+
+Transforma um array arbitrário em uma heap válida.
 
 ---
 
@@ -98,41 +93,13 @@ Mantém a propriedade de heap via **HeapifyUp**.
 
 ---
 
-### Remover máximo
+### Remoção do máximo
 
 ```c
 HeapExtractMax(heap);
 ```
 
-Remove o maior elemento (raiz).
-
----
-
-### Construir heap
-
-```c
-HeapBuildFromArray(heap);
-```
-
-Transforma um array qualquer em heap válida.
-
----
-
-### Impressão
-
-```c
-HeapPrint(heap);
-```
-
----
-
-### Destruição
-
-```c
-HeapDestroy(heap);
-```
-
-Libera toda a memória.
+Remove o elemento da raiz e reorganiza a estrutura.
 
 ---
 
@@ -142,32 +109,30 @@ Libera toda a memória.
 void HeapSort(StructureHeap *heap);
 ```
 
-### Como funciona:
+Etapas:
 
-1. Constrói a heap
-2. Troca raiz com último elemento
-3. Reduz tamanho virtual
-4. Reorganiza com HeapifyDown
+1. Construção da heap
+2. Troca da raiz com o último elemento
+3. Redução do tamanho virtual
+4. Reorganização com HeapifyDown
 
 Complexidade:
 
-* **Tempo:** `O(n log n)`
-* **Espaço:** `O(1)` (in-place)
+* Tempo: `O(n log n)`
+* Espaço: `O(1)`
 
 ---
 
 ## Medição de tempo
 
-O projeto usa `clock_gettime` com `CLOCK_MONOTONIC`, que é confiável e não sofre com mudanças do sistema.
-
-### Uso:
+O projeto utiliza `clock_gettime` com `CLOCK_MONOTONIC`, evitando interferência de ajustes no relógio do sistema.
 
 ```c
-double tempo = calculateTime(func, heap);
+double tempo = calculateTime(HeapSort, heap);
 calculateTimePrintTime(tempo);
 ```
 
-### Exemplo de saída:
+Exemplo de saída:
 
 ```
 Tempo de execução: 0 H : 0 M : 0 S : 12 ms
