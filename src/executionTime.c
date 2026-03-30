@@ -11,10 +11,10 @@ double elapsed(struct timespec a, struct timespec b){
 
 /******************************************************* INTERFACE PUBLICA *******************************************************/
 
-double executionTimeCalculate(void (*func)(Heap *heap), Heap *heap){
+double executionTimeCalculate(void (*func)(void *), void *data){
     struct timespec t1, t2;
     clock_gettime(CLOCK_MONOTONIC, &t1);
-    func(heap);
+    func(data);
     clock_gettime(CLOCK_MONOTONIC, &t2);
     
     return elapsed(t1, t2);

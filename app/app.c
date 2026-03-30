@@ -48,7 +48,7 @@ int main(){
     //heapPrint(heap);
 
     //heapSort(heap);
-    double executionTime = executionTimeCalculate(heapSort, heap);
+    double executionTime = executionTimeCalculate(heapSortWrapper, heap);
 
     //printf("Após a ordenação!\n");
     //HeapPrint(heap);

@@ -2,6 +2,10 @@
 
 /******************************************************* INTERFACE PUBLICA *******************************************************/
 
+void heapSortWrapper(void *h) {
+    heapSort((Heap*)h);
+}
+
 void heapSort(Heap *heap){
     heapBuildFromArray(heap);
     for(int i = heapGetSize(heap); i > 1; i--){
