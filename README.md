@@ -11,7 +11,7 @@
 
 ## Visão geral
 
-Este projeto implementa uma **Heap (*Max-Heap*)** em C, juntamente com o algoritmo ** *Heap Sort* **.
+Este projeto implementa uma **Heap (*Max-Heap*)** em C, juntamente com o algoritmo ***Heap Sort***.
 
 Também inclui um módulo para **medição de tempo de execução** utilizando `clock_gettime`, permitindo observar o comportamento real do algoritmo.
 
