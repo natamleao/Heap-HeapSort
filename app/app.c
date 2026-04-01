@@ -15,7 +15,7 @@ int main(){
     for(int i = 0; i < SIZE; i++){
         float min = -5000000000000.0f;
         float max =  5000000000000.0f;
-        heapSetValue(heap, i, min + ((float)rand() / RAND_MAX) * (max - min));
+        heapSet(heap, i, min + ((float)rand() / RAND_MAX) * (max - min));
     }
 
     //heapPrint(heap);

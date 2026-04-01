@@ -48,7 +48,7 @@ int heapGetVirtualSize(Heap *heap);
  * @param index Índice do elemento.
  * @param value Valor a ser definido.
  */
-void heapSetValue(Heap *heap, int index, float value);
+void heapSet(Heap *heap, int index, float value);
 
 /**
  * @brief Ajusta o tamanho atual do Heap.

@@ -33,7 +33,7 @@ float* heapGetData(Heap *heap){return heap->_data;}
 int heapGetSize(Heap *heap){return heap->_size;}
 int heapGetVirtualSize(Heap *heap){return heap->_virtualSize;}
 
-void heapSetValue(Heap *heap, int index, float value){heap->_data[index] = value;}
+void heapSet(Heap *heap, int index, float value){heap->_data[index] = value;}
 void heapSetSize(Heap *heap, int value){heap->_size = value;}
 
 void heapDecrementSize(Heap *heap){heap->_size--;}
@@ -68,8 +68,8 @@ void heapPrint(Heap *heap){
 
 void heapChangeValues(Heap *heap, int indexP, int indexS){
     float auxiliaryVariable = heapGetData(heap)[indexP];
-    heapSetValue(heap, indexP, heapGetData(heap)[indexS]);
-    heapSetValue(heap, indexS, auxiliaryVariable);
+    heapSet(heap, indexP, heapGetData(heap)[indexS]);
+    heapSet(heap, indexS, auxiliaryVariable);
 }
 
 void heapDestroy(Heap *heap){
