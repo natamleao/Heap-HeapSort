@@ -131,7 +131,7 @@ Tempo de execução: 0 H : 0 M : 0 S : 120 ms
 Heap-HeapSort/
 │
 ├── app/             # Arquivo principal da aplicação (main)
-├── bin/             # Executáveis gerados
+├── bin/             # Executável gerados
 ├── include/         # Arquivos de cabeçalho (.h)
 ├── build/           # Arquivos objeto (.o)
 ├── src/             # Código-fonte da aplicação (.c)
