@@ -1,5 +1,5 @@
 #define _POSIX_C_SOURCE 199309L
-#include "../include/executionTime.h"
+#include "../include/execution_time.h"
 #include <time.h>
 #include <stdio.h>
 
@@ -7,7 +7,7 @@
 
 double elapsed(struct timespec a, struct timespec b){
     return (b.tv_sec - a.tv_sec) + (b.tv_nsec - a.tv_nsec) / 1e9;
-}
+} 
 
 /******************************************************* INTERFACE PUBLICA *******************************************************/
 

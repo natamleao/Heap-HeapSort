@@ -1,19 +1,19 @@
-#include "../include/heapSort.h"
+#include "../include/heap_sort.h"
 
 /******************************************************* INTERFACE PUBLICA *******************************************************/
 
-void heapSortWrapper(void *h){
-    heapSort((Heap*)h);
-} 
-
 void heapSort(Heap *heap){
-    heapBuildFromArray(heap);
+    heapBuild(heap);
     for(int i = heapGetSize(heap); i > 1; i--){
         heapChangeValues(heap, 0, i - 1);
         heapDecrementSize(heap);
 
-        heapifyDown(heap, 0);
+        heapifyDown(heap, 0); 
     }
 }
+
+void heapSortWrapper(void *h){
+    heapSort((Heap*)h);
+} 
 
 /*********************************************************************************************************************************/

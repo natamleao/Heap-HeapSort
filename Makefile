@@ -4,32 +4,32 @@ INCLUDE = ./include
 LIBDIR = ./lib
 BUILD = ./build
 SRC = ./src
-FLAGS = -Wall -Werror  
+
+FLAGS = -Wall -Werror
 FLAGGLUT = -lGL -lGLU -lglut
 
-LIB = $(LIBDIR)/libebheap.a
+LIB = $(LIBDIR)/libdsa.a
 
-all: \
-    libeb \
-	myapps
+all: lib app
 
-libeb: \
+lib: \
     $(BUILD)/heap.o \
-	$(BUILD)/heapSort.o \
-	$(BUILD)/executionTime.o
+    $(BUILD)/heap_sort.o \
+    $(BUILD)/execution_time.o
 
-myapps: \
-	cleanapp \
-	$(BIN)/app
+app: cleanapp $(BIN)/app
 
 $(BUILD)/%.o: $(SRC)/%.c $(INCLUDE)/%.h
-	gcc $(FLAGS) -c $< -I $(INCLUDE) -o $@ 
+	gcc $(FLAGS) -c $< -I $(INCLUDE) -o $@
 
-$(LIB): $(BUILD)/heap.o $(BUILD)/heapSort.o $(BUILD)/executionTime.o
+$(LIB): \
+    $(BUILD)/heap.o \
+    $(BUILD)/heap_sort.o \
+    $(BUILD)/execution_time.o
 	ar rcs $@ $^
 
-$(BIN)/%: $(APPS)/%.c $(LIB)
-	gcc $(FLAGS) $< -L$(LIBDIR) -lebheap -I $(INCLUDE) -o $@ $(FLAGGLUT)
+$(BIN)/app: $(APPS)/app.c $(LIB)
+	gcc $(FLAGS) $< -L$(LIBDIR) -ldsa -I $(INCLUDE) -o $@ $(FLAGGLUT)
 
 run:
 	$(BIN)/app

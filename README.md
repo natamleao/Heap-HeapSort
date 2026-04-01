@@ -1,109 +1,94 @@
-# Heap e HeapSort em C com Medição de Tempo
+# Heap e *Heap Sort* em C com Medição de Tempo
 
 ![Language](https://img.shields.io/badge/language-C-blue)
 ![Standard](https://img.shields.io/badge/standard-C11-orange)
 ![Build](https://img.shields.io/badge/build-Makefile-green)
 ![Data Structure](https://img.shields.io/badge/data_structure-heap-yellow)
-![Algorithm](https://img.shields.io/badge/algorithm-heapsort-lightgrey)
+![Algorithm](https://img.shields.io/badge/algorithm-heap_sort-lightgrey)
 ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 ---
 
 ## Visão geral
 
-Este projeto implementa uma **Heap (Max-Heap)** em C, juntamente com o algoritmo **HeapSort**.
+Este projeto implementa uma **Heap (*Max-Heap*)** em C, juntamente com o algoritmo ** *Heap Sort* **.
 
-Também inclui um módulo simples para **medição de tempo de execução** utilizando `clock_gettime`, permitindo avaliar o desempenho do algoritmo.
+Também inclui um módulo para **medição de tempo de execução** utilizando `clock_gettime`, permitindo observar o comportamento real do algoritmo.
+
+A ideia não é só implementar — é medir e entender o custo.
 
 ---
 
 ## Funcionalidades
 
-- Criação de heap a partir de array  
-- Inserção de elementos  
-- Remoção do elemento máximo  
-- Construção de heap (heapify)  
-- Ordenação com HeapSort  
-- Impressão da estrutura  
-- Medição de tempo de execução  
-- Liberação de memória  
+* Criação de *heap* dinâmica
+* Construção da *heap* (*heap build*)
+* Reorganização com *heapify down*
+* Ordenação com *Heap Sort*
+* Impressão da estrutura
+* Medição de tempo de execução
+* Liberação de memória
 
 ---
 
-## Estrutura da Heap
+## Estrutura da *heap*
 
-A heap é representada como um array:
+A *heap* é representada como um *array*:
 
 ```
-
 Índice:   0    1    2    3    4    5
 Valor:   [90, 70, 50, 30, 20, 10]
-
 ```
 
 Relações:
 
 ```
-
 pai(i) = (i - 1) / 2
 esq(i) = 2*i + 1
 dir(i) = 2*i + 2
-
-````
+```
 
 ---
 
 ## Estrutura principal
 
 ```c
-struct _structureHeap{
+struct _heap{
     float *_data;
     int _size;
     int _virtualSize;
-    int _capacity;
 };
-````
+```
 
-* `_data`: array da heap
-* `_size`: quantidade de elementos válidos
-* `_virtualSize`: usado no HeapSort para controlar a parte ativa
-* `_capacity`: capacidade máxima
+* `_data` → armazena os elementos
+* `_size` → tamanho atual da estrutura
+* `_virtualSize` → controla a parte ativa durante o *Heap Sort*
 
 ---
 
 ## Operações principais
 
-### Construção da heap
+### Construção da *heap*
 
 ```c
-heapBuildFromArray(heap);
+heapBuild(heap);
 ```
 
-Transforma um array arbitrário em uma heap válida.
+Transforma um *array* arbitrário em uma *heap* válida.
 
 ---
 
-### Inserção
+### Reorganização (*heapify down*)
 
 ```c
-heapInsertKey(heap, key);
+heapifyDown(heap, index);
 ```
 
-Mantém a propriedade de heap via **HeapifyUp**.
+Garante a propriedade de *heap* ao descer um elemento.
 
 ---
 
-### Remoção do máximo
-
-```c
-heapExtractMax(heap);
-```
-
-Remove o elemento da raiz e reorganiza a estrutura.
-
----
-
-## HeapSort
+## *Heap Sort*
 
 ```c
 void heapSort(Heap *heap);
@@ -111,31 +96,31 @@ void heapSort(Heap *heap);
 
 Etapas:
 
-1. Construção da heap
-2. Troca da raiz com o último elemento
-3. Redução do tamanho virtual
-4. Reorganização com HeapifyDown
+1. Construir a *heap*
+2. Trocar a raiz com o último elemento
+3. Reduzir o tamanho ativo
+4. Aplicar *heapify down*
 
-Complexidade: 
+Complexidade:
 
 * Tempo: `O(n log n)`
-* Espaço: `O(1)`
+* Espaço: `O(1)` (*in-place*)
 
 ---
 
 ## Medição de tempo
 
-O projeto utiliza `clock_gettime` com `CLOCK_MONOTONIC`, evitando interferência de ajustes no relógio do sistema.
+O projeto utiliza `clock_gettime` com `CLOCK_MONOTONIC`, evitando interferência do sistema.
 
 ```c
 double executionTime = executionTimeCalculate(heapSortWrapper, heap);
 executionTimePrint(executionTime);
 ```
 
-Exemplo de saída:
+Exemplo:
 
 ```
-Tempo de execução: 0 H : 0 M : 0 S : 12 ms
+Tempo de execução: 0 H : 0 M : 0 S : 120 ms
 ```
 
 ---
@@ -158,10 +143,10 @@ Heap-HeapSort/
 ```
 
 ---
+
 > [!IMPORTANT]
-> ## Requisitos
 >
-> Para compilar e executar o projeto é necessário:
+> ## Requisitos
 >
 > * **GCC ou Clang**
 > * **GNU Make**
@@ -171,17 +156,14 @@ Heap-HeapSort/
 
 ## Instalação
 
-Clone o repositório:
-
 ```bash
 git clone git@github.com:natamleao/Heap-HeapSort.git
 cd Heap-HeapSort
 ```
+
 ---
 
 ## Compilação
-
-Compile o projeto com:
 
 ```bash
 make
@@ -191,17 +173,13 @@ make
 
 ## Execução
 
-Execute o programa com:
-
 ```bash
 make run
 ```
 
 ---
 
-## Limpeza do projeto
-
-Remover arquivos compilados:
+## Limpeza
 
 ```bash
 make clean
@@ -211,9 +189,10 @@ make cleanapp
 ---
 
 > [!WARNING]
+>
 > ## Licença
 >
-> Este projeto está licenciado sob a **Licença MIT**.
+> Este projeto está sob a **Licença MIT**.
 
 ---
 

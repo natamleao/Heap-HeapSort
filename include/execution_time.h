@@ -3,8 +3,6 @@
 #ifndef CALCULATE_TIME_H
 #define CALCULATE_TIME_H
 
-#include "heap.h"
-
 /**
  * @brief Mede o tempo de execução de uma função que atua sobre uma estrutura genérica.
  *
