@@ -5,25 +5,39 @@
 #include <stdlib.h>
 #include <time.h> 
 
-#define SIZE 10000000
+#define MAX_TESTS 7
 
 int main(){
 
-    Heap *heap = heapCreate(SIZE);
+    int tests[] = {10000, 20000, 50000, 100000, 200000, 500000, 1000000};
 
-    srand(time(NULL));
-    for(int i = 0; i < SIZE; i++){
-        float min = -1e6f;
-        float max =  1e6f;
-        heapSet(heap, i, min + ((float)rand() / RAND_MAX) * (max - min));
+    printf("+------------------------------------------------------------------+\n");
+    printf("+------------------------ Testes iniciados ------------------------+\n");
+
+    for(int i = 0; i < MAX_TESTS; i++){
+        printf("+------------------------------------------------------------------+\n");
+        printf("Teste n.º: %d\n", i+1);
+        printf("+------------------------------------------------------------------+\n");
+        Heap *heap = heapCreate(tests[i]);
+
+        srand(time(NULL));
+        for(int j = 0; j < tests[i]; j++){
+            float min = -1e6f;
+            float max =  1e6f;
+            float value = min + ((float)rand() / RAND_MAX) * (max - min);
+            heapSet(heap, j, value);
+        }
+
+        double executionTimeHeapSort = executionTimeCalculate(heapSortWrapper, heap);
+        printf("HeapSort - ");
+        //structureArrayPrint(heap);
+        executionTimePrint(executionTimeHeapSort);
+        heapDestroy(heap);
     }
 
-    //heapPrint(heap);
+    printf("+------------------------------------------------------------------+\n");
+    printf("+----------------------- Testes finalizados -----------------------+\n");
+    printf("+------------------------------------------------------------------+\n");
 
-    double executionTime = executionTimeCalculate(heapSortWrapper, heap);
-
-    executionTimePrint(executionTime);
-
-    heapDestroy(heap);
     return 0;
 }
