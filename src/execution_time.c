@@ -21,7 +21,7 @@ double executionTimeCalculate(void (*function)(void *), void *data){
 }
 
 void executionTimePrint(double executionTime){
-    long long total_ms = (long long)(executionTimeNs / 1e6);  
+    long long total_ms = (long long)(executionTime / 1e6);  
     int hours = total_ms / 3600000;
     int minutes = (total_ms % 3600000) / 60000;
     int seconds = (total_ms % 60000) / 1000;
