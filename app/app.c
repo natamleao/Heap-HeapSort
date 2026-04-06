@@ -16,7 +16,7 @@ int main(){
 
     for(int i = 0; i < MAX_TESTS; i++){
         printf("+------------------------------------------------------------------+\n");
-        printf("Teste n.º: %d\n", i+1);
+        printf("+ Teste nº: %d | Tamanho da entrada: %d\n", i+1, tests[i]);
         printf("+------------------------------------------------------------------+\n");
         Heap *heap = heapCreate(tests[i]);
 
