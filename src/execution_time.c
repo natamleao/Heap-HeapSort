@@ -6,27 +6,26 @@
 /******************************************************* INTERFACE PRIVADA *******************************************************/
 
 double elapsed(struct timespec a, struct timespec b){
-    return (b.tv_sec - a.tv_sec) + (b.tv_nsec - a.tv_nsec) / 1e9;
+    return (b.tv_sec - a.tv_sec) * 1e9 + (b.tv_nsec - a.tv_nsec);
 } 
 
 /******************************************************* INTERFACE PUBLICA *******************************************************/
 
-double executionTimeCalculate(void (*func)(void *), void *data){
+double executionTimeCalculate(void (*function)(void *), void *data){
     struct timespec t1, t2;
     clock_gettime(CLOCK_MONOTONIC, &t1);
-    func(data);
+    function(data);
     clock_gettime(CLOCK_MONOTONIC, &t2);
     
     return elapsed(t1, t2);
 }
 
 void executionTimePrint(double executionTime){
-    int hours, minutes, seconds, milliseconds;
-
-    hours = (int)(executionTime / 3600);
-    minutes = (int)((executionTime - hours*3600) / 60);
-    seconds = (int)(executionTime - hours*3600 - minutes*60);
-    milliseconds = (int)((executionTime - hours*3600 - minutes*60 - seconds) * 1000);
+    long long total_ms = (long long)(executionTimeNs / 1e6);  
+    int hours = total_ms / 3600000;
+    int minutes = (total_ms % 3600000) / 60000;
+    int seconds = (total_ms % 60000) / 1000;
+    int milliseconds = total_ms % 1000;
 
     printf("Tempo de execução: %d H : %d M : %d S : %d ms\n", hours, minutes, seconds, milliseconds);
 }
