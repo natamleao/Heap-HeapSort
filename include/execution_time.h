@@ -11,7 +11,7 @@
  *
  * @return Tempo de execução da função em segundos (tipo `double`).
  *
- * @note Usa `clock()` da biblioteca `<time.h>`, portanto mede **tempo de CPU**, não tempo real.
+ * @note Usa clock_gettime com CLOCK_MONOTONIC (tempo real de alta precisão).
  */
 double executionTimeCalculate(void (*function)(void *), void *data);
 
